@@ -1,10 +1,10 @@
 const colorField = document.querySelector("#colorField");
 
-let sideLength = 16;
+const refreshField = document.querySelector("#refreshField");
 
 //Draws divs for a square gride of size `length`
 function drawSquareField(length) {
-    
+
     let i = 1;
 
     //Generates a row div to hold a row of 'length' divs
@@ -19,7 +19,10 @@ function drawSquareField(length) {
         //Generates individual divs to fill the row
         while (j <= length) {
             const div = document.createElement("div");
-            div.classList.add("tile")
+            
+            div.classList.add("tile");
+            div.addEventListener("mouseenter", hoverDraw);
+
             rowDiv.appendChild(div);
 
             ++j;
@@ -30,5 +33,31 @@ function drawSquareField(length) {
     }
 }
 
+function hoverDraw(e) {
+    let elem = document.elementFromPoint(e.clientX, e.clientY);
+    
+    elem.style.backgroundColor = "black";
+}
+
+function refresh() {
+    while (colorField.firstChild) {
+        colorField.removeChild(colorField.lastChild);
+    }
+
+    let input;
+
+    do {
+        input = prompt("Enter a length less than 100:")
+    } while (input >=100) {
+        drawSquareField(input);
+    };
+
+
+}
+
+let sideLength = 16;
+
 drawSquareField(sideLength);
+
+refreshField.addEventListener("click", refresh);
 
