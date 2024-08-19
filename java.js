@@ -1,6 +1,9 @@
+//Field where drawing will be generated
 const colorField = document.querySelector("#colorField");
 
+//Button which will be used to refresh the field for a new sketch
 const refreshField = document.querySelector("#refreshField");
+refreshField.addEventListener("click", refresh);
 
 //Draws divs for a square gride of size `length`
 function drawSquareField(length) {
@@ -33,12 +36,14 @@ function drawSquareField(length) {
     }
 }
 
+//Gets hover element from pointer location and changes background color
 function hoverDraw(e) {
     let elem = document.elementFromPoint(e.clientX, e.clientY);
     
     elem.style.backgroundColor = "black";
 }
 
+//Removes current grid, prompts user for size of new grid, and draws new grid
 function refresh() {
     while (colorField.firstChild) {
         colorField.removeChild(colorField.lastChild);
@@ -48,16 +53,15 @@ function refresh() {
 
     do {
         input = prompt("Enter a length less than 100:")
-    } while (input >=100) {
+    } while (input >= 100 || isNaN(input)) {  
         drawSquareField(input);
     };
 
-
 }
 
+//Initialize a 16 x 16 grid when the page is loaded
 let sideLength = 16;
 
 drawSquareField(sideLength);
 
-refreshField.addEventListener("click", refresh);
 

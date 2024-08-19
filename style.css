@@ -15,14 +15,14 @@
     align-items: stretch;
     height: 800px;
     width: 800px;
-    background-color: palegoldenrod;
+    background-color: white;
 }
 
 .row {
     display: flex;
     align-items: stretch;
     flex: 1;
-    background-color: aqua;
+    background-color: white;
 }
 
 .tile {
