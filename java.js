@@ -5,7 +5,7 @@ const colorField = document.querySelector("#colorField");
 const refreshField = document.querySelector("#refreshField");
 refreshField.addEventListener("click", refresh);
 
-//Draws divs for a square gride of size `length`
+//Draws divs for a square grid of size `length`
 function drawSquareField(length) {
 
     let i = 1;
@@ -19,7 +19,7 @@ function drawSquareField(length) {
 
         let j = 1;
 
-        //Generates individual divs to fill the row
+        //Generates individual divs with hover event listeners to fill the row
         while (j <= length) {
             const div = document.createElement("div");
             
@@ -36,15 +36,30 @@ function drawSquareField(length) {
     }
 }
 
- const getRGB = () => Math.floor(Math.random() * (255 - 0));
+//Returns a random value between 0 and 255 for color generation
+const getRGB = () => Math.floor(Math.random() * (255 - 0));
 
-//Gets hover element from pointer location and changes background color to random RGB
+//Gets hover element from pointer location, changes background color to random RGB, and handles opacity increases
 function hoverDraw(e) {
     let elem = document.elementFromPoint(e.clientX, e.clientY);
+    let opacity = getComputedStyle(elem)["opacity"];
 
-    console.log(`rgb, ${getRGB()}, ${getRGB()}, ${getRGB()}`)
+    //Chooses random RGB and initializes opacity to 0.1 if the tile has not been drawn on
+    if (!(elem.classList.contains('drawn'))) {
+        elem.style.backgroundColor = `rgb(${getRGB()}, ${getRGB()}, ${getRGB()})`;
+        
+        let alpha = 0.1;
+        elem.style.opacity = alpha;
 
-    elem.style.backgroundColor = `rgb(${getRGB()}, ${getRGB()}, ${getRGB()})`;
+        elem.classList.add('drawn');
+
+    //Increases opacity if the tile has already been drawn on
+    } else if (opacity < 1) {
+        let alpha = +(opacity);
+        alpha += 0.1;
+
+        elem.style.opacity = alpha;
+    }
 }
 
 //Removes current grid, prompts user for size of new grid, and draws new grid
