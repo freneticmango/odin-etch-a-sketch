@@ -36,11 +36,15 @@ function drawSquareField(length) {
     }
 }
 
-//Gets hover element from pointer location and changes background color
+ const getRGB = () => Math.floor(Math.random() * (255 - 0));
+
+//Gets hover element from pointer location and changes background color to random RGB
 function hoverDraw(e) {
     let elem = document.elementFromPoint(e.clientX, e.clientY);
-    
-    elem.style.backgroundColor = "black";
+
+    console.log(`rgb, ${getRGB()}, ${getRGB()}, ${getRGB()}`)
+
+    elem.style.backgroundColor = `rgb(${getRGB()}, ${getRGB()}, ${getRGB()})`;
 }
 
 //Removes current grid, prompts user for size of new grid, and draws new grid
